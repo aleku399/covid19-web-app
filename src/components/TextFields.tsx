@@ -60,23 +60,25 @@ export const FieldContainer: SFC<Props> = ({
           />
           <TextField
             fullWidth
-            label="Enter your Daily Income"
+            label="Enter Average Daily Income"
             type="number"
             margin="normal"
             variant="outlined"
             name="avgDailyIncomeInUSD"
             value={avgDailyIncomeInUSD}
             onChange={handleChange}
+            helperText="Enter avgDailyIncomeInUSD"
           />
           <TextField
             fullWidth
-            label="Enter your Income Popn"
+            label="Enter Daily Income Popn"
             type="number"
             margin="normal"
             variant="outlined"
             name="avgDailyIncomePopulation"
             value={avgDailyIncomePopulation}
             onChange={handleChange}
+            helperText="Enter avgDailyIncomePopulation"
           />
           <TextField
             fullWidth
@@ -86,7 +88,9 @@ export const FieldContainer: SFC<Props> = ({
             variant="outlined"
             name="population"
             value={population}
+            data-population={population}
             onChange={handleChange}
+            helperText="Enter population"
           />
         <TextField
             fullWidth
@@ -96,7 +100,9 @@ export const FieldContainer: SFC<Props> = ({
             variant="outlined"
             name="reportedCases"
             value={reportedCases}
+            data-reported-cases={reportedCases}
             onChange={handleChange}
+            helperText="Enter reportedCases"
           />
         <TextField
             fullWidth
@@ -106,7 +112,9 @@ export const FieldContainer: SFC<Props> = ({
             variant="outlined"
             name="timeToElapse"
             value={timeToElapse}
+            data-time-to-elapse={timeToElapse}
             onChange={handleChange}
+            helperText="Enter timeToElapse"
           />
           <TextField
             fullWidth
@@ -116,32 +124,36 @@ export const FieldContainer: SFC<Props> = ({
             variant="outlined"
             name="totalHospitalBeds"
             value={totalHospitalBeds}
+            data-total-hospital-beds={totalHospitalBeds}
             onChange={handleChange}
+            helperText="Enter totalHospitalBeds"
           />
           <TextField
-          id="standard-select-period"
-          select
-          label="Select"
-          value={periodType}
-          onChange={handleChange}
-          name="periodType"
-          helperText="Please select your period"
-          margin="normal"
-          >
-          {period.map( (option, i ) => (
-            <MenuItem key={i} value={option}>
-              {option}
-            </MenuItem>
-          ))}
+            id="standard-select-period"
+            select
+            label="Select"
+            value={periodType}
+            onChange={handleChange}
+            data-period-type={periodType}
+            name="periodType"
+            helperText="Please select your period"
+            margin="normal"
+            >
+            {period.map( (option, i ) => (
+              <MenuItem key={i} value={option}>
+                {option}
+              </MenuItem>
+            ))}
         </TextField>
-      <Button
-        type="submit"
-        color="primary"
-        size="large"
-        variant="contained"
-      >
-        Submit
-      </Button>
+        <Button
+          type="submit"
+          color="primary"
+          size="large"
+          variant="contained"
+          data-go-estimate={{region, periodType, timeToElapse}}
+        >
+          Submit
+        </Button>
     </form>
   </div>
   );

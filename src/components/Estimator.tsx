@@ -1,11 +1,11 @@
 import React, { useState, SFC, FormEvent, ChangeEvent } from "react";
 import { Tabs, Tab,
-   AppBar, Toolbar, Typography, Container
+   AppBar, Toolbar, Typography, Container, Snackbar
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import covid19ImpactEstimator, { EstimatedData } from "../estimator";
 import Case from "./GridList";
-// import covid from "../estimator/estimatedData";
+
 import { FieldContainer } from "./TextFields";
 import TabPanel from "./TabPanel";
 import PublicIcon from "@material-ui/icons/Public";
@@ -40,9 +40,10 @@ function a11yProps(index: number) {
   };
 }
 
-export const EstimatedInput: SFC = () => {
+export const Estimator: SFC = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [feedback, setFeedback] = useState(false);
   const [estimatedData, setEstimatedData] = useState<EstimatedData | null>(null)
   const [field, setField] = useState({
     region: "",
@@ -58,6 +59,24 @@ export const EstimatedInput: SFC = () => {
   const handleTabChange = (_event: any, newValue: number) => {
     setValue(newValue);
   };
+
+  const validateFields = (): boolean => {
+    if (field.region !== "" &&
+    field.avgDailyIncomeInUSD !== "" && 
+    field.avgDailyIncomePopulation !== "" && 
+    field.periodType !== "" && 
+    field.timeToElapse !== "" && 
+    field.reportedCases !== "" &&
+    field.population !== "" &&
+    field.totalHospitalBeds !== "")  {
+      setFeedback(false)
+      return true;
+    } else {
+      setFeedback(true)
+      setEstimatedData(null) 
+      return false; 
+  }
+  }
 
   function showCard(){
     if (estimatedData) {
@@ -90,33 +109,35 @@ export const EstimatedInput: SFC = () => {
   }
 
   function handleChange(event:  ChangeEvent<HTMLInputElement>) {
+    setFeedback(false)
+    setEstimatedData(null)
     setField({...field, [event.target.name]: event.target.value});
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    validateFields()
     const data = {
       region: {
         name: field.region,
-        avgDailyIncomeInUSD: parseInt(field.avgDailyIncomeInUSD),
-        avgDailyIncomePopulation: parseInt(field.avgDailyIncomePopulation)
+        avgDailyIncomeInUSD: Number(field.avgDailyIncomeInUSD),
+        avgDailyIncomePopulation: Number(field.avgDailyIncomePopulation)
       },
       periodType: field.periodType,
-      timeToElapse: parseInt(field.timeToElapse),
-      reportedCases: parseInt(field.reportedCases),
-      population: parseInt(field.population),
-      totalHospitalBeds: parseInt(field.totalHospitalBeds)
+      timeToElapse: Number(field.timeToElapse),
+      reportedCases: Number(field.reportedCases),
+      population: Number(field.population),
+      totalHospitalBeds: Number(field.totalHospitalBeds)
     }
     setEstimatedData(covid19ImpactEstimator(data)) 
   }
 
-  console.log("estimated", estimatedData)
   return (
   <div>
     <AppBar position="static">
       <Toolbar variant="dense">
         <Typography variant="h6">
-          Enter your Covid-19 data Estimator
+        A novelty COVID-19 infections estimator
         </Typography>
       </Toolbar>
     </AppBar>
@@ -133,7 +154,21 @@ export const EstimatedInput: SFC = () => {
         handleSubmit={handleSubmit}
         handleChange={handleChange}
       />
-      {showCard()}
+      {feedback ? (
+         <span>
+         <Typography variant="body1">
+           Check Data Submitted
+         </Typography>
+         <Snackbar
+           open={feedback}
+           autoHideDuration={3000}
+           ContentProps={{
+             "aria-describedby": "message-id"
+           }}
+           message={<span id="message-id">There is probably a missing field</span>}
+         />
+       </span>
+      ) : (showCard() ) }
     </Container>
   </div>
   );

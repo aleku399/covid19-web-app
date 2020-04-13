@@ -26,21 +26,20 @@ export interface Estimator {
   dollarsInFlight: number;
 }
 
-function getImpact(data: Data): Estimator {
+function getExpectedData(data: Data, expectedInfections: number): Estimator {
   const days = getDays(data.periodType, data.timeToElapse);
   const { avgDailyIncomeInUSD, avgDailyIncomePopulation } = data.region;
-  const currentlyInfected = data.reportedCases * 10;
+  const currentlyInfected = data.reportedCases * expectedInfections;
   const factor = Math.floor(days / 3);
-  const infectionsByRequestedTime = Math.floor(currentlyInfected * (2 ** factor));
+  const infectionsByRequestedTime = currentlyInfected * (2 ** factor);
   const severeCasesByRequestedTime = Math.floor(0.15 * infectionsByRequestedTime);
-  const availableBeds = Math.floor(0.35 * data.totalHospitalBeds);
-  const hospitalBedsByRequestedTime = availableBeds - severeCasesByRequestedTime;
+  // eslint-disable-next-line max-len
+  const hospitalBedsByRequestedTime = Math.trunc((0.35 * data.totalHospitalBeds) - severeCasesByRequestedTime);
   const casesForICUByRequestedTime = Math.floor(0.05 * infectionsByRequestedTime);
   const casesForVentilatorsByRequestedTime = Math.floor(0.02 * infectionsByRequestedTime);
-  const affectedPopn = infectionsByRequestedTime * avgDailyIncomePopulation;
-  console.log("popn", affectedPopn);
-  const dollarsInFlight = parseFloat((affectedPopn * days * avgDailyIncomeInUSD).toFixed(2));
-  console.log("dollar", dollarsInFlight);
+  // eslint-disable-next-line max-len
+  const dollarsInFlight = Math.floor((avgDailyIncomeInUSD * infectionsByRequestedTime * avgDailyIncomePopulation) / days);
+
   return {
     currentlyInfected,
     infectionsByRequestedTime,
@@ -51,5 +50,4 @@ function getImpact(data: Data): Estimator {
     dollarsInFlight
   };
 }
-
-export default getImpact;
+export default getExpectedData;
