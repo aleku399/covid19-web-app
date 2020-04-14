@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/covi19-web-app/static/css/main.64d447a4.chunk.css",
+    "main.js": "/covi19-web-app/static/js/main.c98efda4.chunk.js",
+    "main.js.map": "/covi19-web-app/static/js/main.c98efda4.chunk.js.map",
+    "runtime-main.js": "/covi19-web-app/static/js/runtime-main.a2da66d5.js",
+    "runtime-main.js.map": "/covi19-web-app/static/js/runtime-main.a2da66d5.js.map",
+    "static/js/2.88a394fb.chunk.js": "/covi19-web-app/static/js/2.88a394fb.chunk.js",
+    "static/js/2.88a394fb.chunk.js.map": "/covi19-web-app/static/js/2.88a394fb.chunk.js.map",
+    "index.html": "/covi19-web-app/index.html",
+    "precache-manifest.2b9090eff1c0968b9e2a942d0c385781.js": "/covi19-web-app/precache-manifest.2b9090eff1c0968b9e2a942d0c385781.js",
+    "service-worker.js": "/covi19-web-app/service-worker.js",
+    "static/css/main.64d447a4.chunk.css.map": "/covi19-web-app/static/css/main.64d447a4.chunk.css.map",
+    "static/js/2.88a394fb.chunk.js.LICENSE.txt": "/covi19-web-app/static/js/2.88a394fb.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a2da66d5.js",
+    "static/js/2.88a394fb.chunk.js",
+    "static/css/main.64d447a4.chunk.css",
+    "static/js/main.c98efda4.chunk.js"
+  ]
+}
