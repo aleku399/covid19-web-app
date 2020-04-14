@@ -1,6 +1,6 @@
 import React, {  SFC, FormEvent, ChangeEvent } from "react";
 import { TextField, 
-  Button, MenuItem,
+  Button, MenuItem, InputLabel, Input, FormHelperText, FormControl,
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
       width: '25ch',
     },
   },
-  app: {
-    display: "flex"
-  }
+  form: {
+      padding: "5px 14px"
+    }
 }));
 
 const period = ["days", "weeks", "months"]
@@ -48,86 +48,100 @@ export const FieldContainer: SFC<Props> = ({
   return (
     <div>
       <form  className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-          <TextField
-            fullWidth
-            label="Enter your region"
-            type="string"
-            margin="normal"
-            variant="outlined"
+        <FormControl className={classes.form}>
+          <InputLabel className={classes.form}  htmlFor="region">Enter your region</InputLabel>
+          <Input 
+            id="region" 
             name="region"
-            value={region}
+            aria-describedby="my-helper-text"
+            value={region} 
+            type="string"
             onChange={handleChange}
           />
-          <TextField
-            fullWidth
-            label="Enter Average Daily Income"
-            type="number"
-            margin="normal"
-            variant="outlined"
+          <FormHelperText id="my-helper-text">region</FormHelperText>
+        </FormControl>
+        <FormControl className={classes.form} >
+          <InputLabel className={classes.form} htmlFor="avgDailyIncomeInUSD">Enter Average DailyIncome</InputLabel>
+          <Input 
+            id="avgDailyIncomeInUSD" 
             name="avgDailyIncomeInUSD"
+            aria-describedby="my-helper-text"
             value={avgDailyIncomeInUSD}
-            onChange={handleChange}
-            helperText="Enter avgDailyIncomeInUSD"
-          />
-          <TextField
-            fullWidth
-            label="Enter Daily Income Popn"
+            fullWidth 
             type="number"
-            margin="normal"
-            variant="outlined"
+            onChange={handleChange}
+          />
+          <FormHelperText id="my-helper-text">avgDailyIncomeInUSD</FormHelperText>
+        </FormControl>
+        <FormControl className={classes.form}>
+          <InputLabel className={classes.form} htmlFor="avgDailyIncomePopulation">Enter Daily Income Popn</InputLabel>
+          <Input 
+            id="avgDailyIncomePopulation" 
             name="avgDailyIncomePopulation"
+            aria-describedby="my-helper-text"
             value={avgDailyIncomePopulation}
-            onChange={handleChange}
-            helperText="Enter avgDailyIncomePopulation"
-          />
-          <TextField
-            fullWidth
-            label="Enter your Population"
+            fullWidth 
             type="number"
-            margin="normal"
-            variant="outlined"
-            name="population"
-            value={population}
-            data-population={population}
             onChange={handleChange}
-            helperText="Enter population"
           />
-        <TextField
-            fullWidth
-            label="Enter your reported Cases"
-            type="number"
-            margin="normal"
-            variant="outlined"
+          <FormHelperText id="my-helper-text">avgDailyIncomePopulation</FormHelperText>
+        </FormControl>
+        <FormControl className={classes.form}>
+          <InputLabel className={classes.form} htmlFor="population">Enter your Population</InputLabel>
+          <Input 
+             id="population" 
+             name="population"
+             aria-describedby="my-helper-text"
+             fullWidth 
+             value={population}
+             data-population={population}
+             onChange={handleChange}
+             type="number"
+          />
+          <FormHelperText id="my-helper-text">population</FormHelperText>
+        </FormControl>
+        <FormControl className={classes.form}>
+          <InputLabel className={classes.form} htmlFor="reportedCases">Enter your Reported Cases</InputLabel>
+          <Input 
+            id="reportedCases" 
             name="reportedCases"
+            aria-describedby="my-helper-text"
+            fullWidth 
             value={reportedCases}
             data-reported-cases={reportedCases}
             onChange={handleChange}
-            helperText="Enter reportedCases"
-          />
-        <TextField
-            fullWidth
-            label="Enter your period"
             type="number"
-            margin="normal"
-            variant="outlined"
+          />
+          <FormHelperText id="my-helper-text">reportedCases</FormHelperText>
+        </FormControl>
+        <FormControl className={classes.form}>
+          <InputLabel className={classes.form} htmlFor="timeToElapse">Enter your period</InputLabel>
+          <Input 
+            id="timeToElapse" 
             name="timeToElapse"
+            aria-describedby="my-helper-text"
+            fullWidth 
             value={timeToElapse}
             data-time-to-elapse={timeToElapse}
             onChange={handleChange}
-            helperText="Enter timeToElapse"
-          />
-          <TextField
-            fullWidth
-            label="Enter your hospital Beds"
             type="number"
-            margin="normal"
-            variant="outlined"
+          />
+          <FormHelperText id="my-helper-text">timeToElapse</FormHelperText>
+        </FormControl>
+        <FormControl className={classes.form}>
+          <InputLabel className={classes.form} htmlFor="totalHospitalBeds">Enter your hospital Beds</InputLabel>
+          <Input 
+            id="totalHospitalBeds" 
             name="totalHospitalBeds"
+            aria-describedby="my-helper-text"
+            fullWidth 
             value={totalHospitalBeds}
             data-total-hospital-beds={totalHospitalBeds}
             onChange={handleChange}
-            helperText="Enter totalHospitalBeds"
+            type="number"
           />
+          <FormHelperText id="my-helper-text">totalHospitalBeds</FormHelperText>
+        </FormControl>
           <TextField
             id="standard-select-period"
             select
